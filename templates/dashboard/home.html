@@ -1,10 +1,11 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Page</title>
+    <title>Automation</title>
 
     <!-- Static Files -->
     <script src="{% static 'js/sidebar.js' %}" type="module"></script>
@@ -117,23 +118,24 @@
 
 <!-- Main Navigation -->
 <header>
+   
     <!-- Sidebar -->
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-success">
         <div class="position-sticky">
           <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="sidebar-logo" >
           <hr class="sidebar-divider">
             <div class="list-group list-group-flush mx-8 mt-4">
-                <a href="#" class="list-group-item list-group-item-action py-4 ripple " aria-current="true" style="border-bottom: none; color: blanchedalmond;">
+                <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action py-4 ripple " aria-current="true" style="border-bottom: none; color: blanchedalmond;">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action py-4 ripple " style="border-bottom: none; color: blanchedalmond;">
+                <a href="{% url 'products' %}" class="list-group-item list-group-item-action py-4 ripple " style="border-bottom: none; color: blanchedalmond;">
                     <i class="fas fa-chart-area fa-fw me-3"></i><span>Product</span>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none; color: blanchedalmond;">
+                <a href="{% url 'purchases' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none; color: blanchedalmond;">
                   <i class="fas fa-lock fa-fw me-3"></i><span>Purchases</span>
                 </a>
                 
-                <a href="#" class="list-group-item list-group-item-action py-4 ripple" style=" color: blanchedalmond;">
+                <a href="{% url 'sales' %}" class="list-group-item list-group-item-action py-4 ripple" style=" color: blanchedalmond;">
                     <i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span>
                 </a>
             </div>
@@ -149,9 +151,10 @@
                     aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
+            <h1 class="navbar-brand mx-auto text-center text-uppercase font-weight-bold text-danger">Farm Produce & Record Automation System</h1>>
 
             <!-- Right links -->
-            <ul class="navbar-nav ms-auto d-flex flex-row">
+            <ul class="navbar-nav ms-auto d-flex flex-row"> 
                 <!-- Notifications -->
                 <li class="nav-item dropdown">
                     <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
@@ -170,26 +173,24 @@
                
 
                 <li class="nav-item me-3 me-lg-0">
-                    <a class="nav-link" href="#"><i class="fab fa-whatsapp"></i></a> 
+                    <a class="nav-link" href="https://github.com/Njosephine" target="_blank">
+                        <i class="fab fa-github"></i> 
+                    </a>
                 </li>
                 
+              <!-- User Profile Dropdown -->
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" 
+                           id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                         <img src="{% static 'images/profile.jpeg' %}" class="rounded-circle" height="35" alt="User Profile" loading="lazy"/>
+                     </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                      <!-- Open the Modal Instead of Redirecting -->
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">My Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                   </ul>
+                 </li>
 
-                
-
-                <!-- User Profile Dropdown -->
-
-                <!-- User Profile Dropdown -->
-               <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
-                    id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{% static 'images/profile.jpeg' %}" class="rounded-circle"
-                    height="35" alt="User Profile" loading="lazy"/>
-                   </a>
-                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                       <li><a class="dropdown-item" href="#">My Profile</a></li>
-                       <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                  </ul>
-               </li>
             </ul>
         </div>
     </nav>
@@ -200,11 +201,34 @@
 <!-- Main layout -->
 <main style="margin-top: 58px">
     <div class="container pt-4">
-        <!-- Content goes here -->
+        {% block content %}
+        <!-- Content will be dynamically loaded here based on the view -->
+        {% endblock %}
     </div>
 </main>
 <!-- Main layout -->
 
+<!-- Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="profileModalLabel">{{ user.username }}'s Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <!-- User Details -->
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Firstname:</strong> {{ user.profile.firstname }}</p>
+          <p><strong>Lastname:</strong> {{ user.profile.lastname }}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 

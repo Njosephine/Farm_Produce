@@ -134,5 +134,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "home" 
 
+#restricts access to the home page if not logged in
+
 LOGIN_URL = "login"
 
+#setting for uploading images
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

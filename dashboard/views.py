@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from dashboard.forms import RegisterForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from .models import Profile
 
 
-def login_view(request):
+def index_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -26,9 +27,27 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out successfully.")
-    return redirect("login") 
+    return redirect("index") 
 
 
 @login_required
 def home_view(request):
     return render(request, "dashboard/home.html")
+
+@login_required
+def profile_view(request):
+    profile, created =Profile.objects.get_or_create(user=request.user)
+    return render(request, "accounts/profile.html", {"profile": profile})
+
+
+def dashboard_view(request):
+    return render(request, 'dashboard/dashboard.html')
+
+def products_view(request):
+    return render(request, 'dashboard/products.html')
+
+def purchases_view(request):
+    return render(request, 'dashboard/purchase.html')
+
+def sales_view(request):
+    return render(request, 'dashboard/sales.html')
