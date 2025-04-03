@@ -1,0 +1,59 @@
+
+
+{% load static %}
+
+
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        padding: 58px 0 0;
+        width: 240px !important;
+        z-index: 600;
+        color: white !important;
+        border-right: none !important;
+        box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+        
+      }
+        
+      
+
+    .sidebar-logo {
+     display: block;
+     margin: 0 auto;
+     max-width: 150px; 
+     height: 150px; 
+     border-radius: 50%; 
+     object-fit: cover; 
+    }
+</style>
+{% endblock stylesheets %}
+{% block content %}
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-transparent">
+    <div class="position-sticky">
+      <h4 class="text-uppercase text-danger mx-auto" style="width: fit-content;">AgriTrack</h4>
+      <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="sidebar-logo" >
+      <hr class="hr" />
+        <div class="list-group list-group-flush mx-8 mt-4">
+            <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action py-4 ripple "  style="border-bottom: none;">
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+            </a>
+            <a href="{% url 'products' %}" class="list-group-item list-group-item-action py-4 ripple " style="border-bottom: none;">
+                <i class="fas fa-chart-area fa-fw me-3"></i><span>Product</span>
+            </a>
+            <a href="{% url 'purchases' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
+              <i class="fas fa-lock fa-fw me-3"></i><span>Purchases</span>
+            </a>
+            
+            <a href="{% url 'sales' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
+                <i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span>
+            </a>
+        </div>
+    </div>
+</nav>
+{% endblock %}

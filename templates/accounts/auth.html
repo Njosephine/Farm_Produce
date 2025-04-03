@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.2.0/mdb.min.css">
+    
+    <script src="{% static 'js/register.js' %}" type="module"></script>
+    
+    <style>
+        /* Custom font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .form-outline input:focus, 
+        .input-group input:focus {
+           border-color: #00853E !important;
+          box-shadow: 0px 0px 5px rgba(0, 133, 62, 0.5) !important; 
+          outline: none !important; 
+        }
+
+       
+    </style>
+</head>
+<body>
+
+    <div class="container mt--8 pb-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-7">
+            <div class="card bg-light shadow border-0">
+            <div class="card-header bg-transparent pb-4">
+                <div class="text-success text-center mt-2 mb-3">
+                  SIGN IN
+                </div>
+              </div>
+              <div class="card-body px-lg-5 py-lg-5">
+                <div class="text-center text-muted mb-4">
+  
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors  %}
+                            <p>{{ error }}</p>
+                           
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                 
+  
+                </div>
+  
+                <form method="POST" action="{% url 'index' %}">
+  
+                  {% csrf_token %}
+  
+                  <div class="form-group mb-3">
+                    <div class="input-group input-group-alternative">
+                          <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                      </div>
+                      {{ form.username }}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                      </div>
+                      {{ form.password }}
+                    </div>
+                  </div>
+                  <div class="custom-control custom-control-alternative custom-checkbox">
+                    <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                    <label class="custom-control-label" for=" customCheckLogin">
+                      <span class="text-muted">Remember me</span>
+                    </label>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-success my-">Sign in</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+     </div>
+   </div>
+</div>
+
+    <!-- Bootstrap & MDBootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+</body>
+</html>
