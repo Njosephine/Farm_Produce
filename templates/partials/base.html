@@ -19,6 +19,21 @@
 
     <!-- MDB UI Kit (For Bootstrap 5) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.2.0/mdb.min.css">
+
+    <style>
+          html, body {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+         
+       }
+
+       main {
+        min-height: 100vh; 
+        overflow-y: auto;
+      }
+    </style>
 </head>
 <body>
 
@@ -33,12 +48,14 @@
 </nav>
 
 <!-- Main layout -->
-<main style="margin-top: 5px; margin-left: 250px; ">
+<main style="margin-top: 5px; margin-left: 250px;  background-color: #F5F5F5 ">
     <div class="container-fluid pt-1">
         {% block content %}
         {% endblock %}
     </div>
 </main>
+
+{% include "dashboard/footer.html" %} 
 
 <!-- jQuery (Required for MDB) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

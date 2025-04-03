@@ -53,3 +53,12 @@ def purchases_view(request):
 
 def sales_view(request):
     return render(request, 'dashboard/sales.html')
+
+def category_view(request):
+    return render(request, 'dashboard/category.html')
+
+def supplier_view(request):
+    return render(request, 'dashboard/supplier.html')
+
+def customer_view(request):
+    return render(request, 'dashboard/customer.html')
