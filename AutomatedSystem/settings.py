@@ -132,11 +132,11 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "home" 
+LOGIN_REDIRECT_URL = "dashboard" 
 
 #restricts access to the home page if not logged in
 
-LOGIN_URL = "login"
+LOGIN_URL = "index"
 
 #setting for uploading images
 

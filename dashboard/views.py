@@ -2,27 +2,29 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from django.contrib.auth.models import User
-from dashboard.forms import RegisterForm
+from .forms import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile
 
 
 def index_view(request):
+    form = LoginForm(request.POST or None)
+
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("home")
-        else:
-            error_message = "Invalid Credentials"
-            return render(request, "accounts/auth.html", {"error": error_message})
 
-    return render(request, "accounts/auth.html")
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/dashboard")
+            else:
+               form.add_error(None, 'Invalid username or password') 
+       
 
+    return render(request, "accounts/auth.html", {"form": form})
 
 def logout_view(request):
     logout(request)
@@ -30,16 +32,16 @@ def logout_view(request):
     return redirect("index") 
 
 
-@login_required
-def home_view(request):
-    return render(request, "dashboard/home.html")
+
+# def home_view(request):
+#     return render(request, "dashboard/home.html")
 
 @login_required
 def profile_view(request):
     profile, created =Profile.objects.get_or_create(user=request.user)
     return render(request, "accounts/profile.html", {"profile": profile})
 
-
+@login_required
 def dashboard_view(request):
     return render(request, 'dashboard/dashboard.html')
 
