@@ -5,7 +5,8 @@ from django.views import View
 from .forms import LoginForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Profile
+from .models import Category, Customer, Profile
+from .forms import Category_Form, Customer_Form
 
 
 def index_view(request):
@@ -54,11 +55,38 @@ def purchases_view(request):
 def sales_view(request):
     return render(request, 'dashboard/sales.html')
 
-def category_view(request):
-    return render(request, 'dashboard/category.html')
 
 def supplier_view(request):
     return render(request, 'dashboard/supplier.html')
 
 def customer_view(request):
     return render(request, 'dashboard/customer.html')
+
+#categories
+def category_view(request):
+    form = Category_Form()  
+    categories = Category.objects.all()
+
+
+    if request.method == 'POST':
+        form = Category_Form(request.POST)  #
+        if form.is_valid():
+            form.save()
+            return redirect('category')  
+
+    return render(request, "dashboard/category.html", {"form": form, "categories": categories}) 
+
+#customer
+def customer_view(request):
+    form = Customer_Form()  
+    customers = Customer.objects.all()
+
+
+    if request.method == 'POST':
+        form = Customer_Form(request.POST)  #
+        if form.is_valid():
+            form.save()
+            return redirect('category')  
+
+    return render(request, "dashboard/category.html", {"form": form, "customers": customers})
+

@@ -1,3 +1,5 @@
+from phonenumber_field.modelfields import PhoneNumberField # type: ignore
+
 from django.db import models
 
 # Create your models here.
@@ -11,3 +13,24 @@ class Profile(models.Model):
    
     def __str__(self):
         return f"{self.user.username}Profile"
+    
+
+class Category(models.Model):
+    categoryName  = models.CharField(max_length=100)
+
+
+    def __str__(self):
+        return self.categoryName
+
+class Customer(models.Model):
+    contact = PhoneNumberField(unique=True) 
+    address = models.CharField(max_length=255)
+    customerName = models.CharField(max_length=100)
+
+
+    def __str__(self):
+        return self.customerName
+    
+
+
+    

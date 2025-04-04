@@ -21,7 +21,7 @@
 </style>
 {% endblock stylesheets %}
    {% block content %}    
-        
+   
    <div class="header bg-success pb-7" >
     <div class="container-fluid">
       <div class="header-body">
@@ -54,7 +54,7 @@
             <a class="btn btn-sm btn-neutral position-relative" href="#" id="notificationDropdown"
                role="button" data-bs-toggle="dropdown" aria-expanded="false">
                <img src="{% static 'images/bell 1.png' %}" class="rounded-circle" height="35" width="35" alt="User Profile" loading="lazy"/>
-                <!-- <span class="badge rounded-pill badge-notification bg-danger">1</span> -->
+                <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">1</span> -->
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
                 <li><a class="dropdown-item" href="#">Some news</a></li>
@@ -74,11 +74,9 @@
 <!-- Navbar -->
 
 
-<!-- Main layout -->
-
 <!-- Profile Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="profileModalLabel">{{ user.username }}'s Profile</h5>

@@ -1,6 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
-
+from .models import Category, Customer
 class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
@@ -16,3 +15,15 @@ class LoginForm(forms.Form):
                 "class": "form-control"
             }
         ))
+    
+
+class Category_Form(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['categoryName']
+
+
+class Customer_Form(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['customerName','contact','address']

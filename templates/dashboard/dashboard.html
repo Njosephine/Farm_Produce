@@ -220,16 +220,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -265,16 +261,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -310,16 +302,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -355,16 +343,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -400,16 +384,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -456,57 +436,22 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col"><input type="checkbox" id="selectAllRight"></th>
-                  <th scope="col" class="sort" data-sort="name">Project</th>
-                  <th scope="col" class="sort" data-sort="budget">Budget</th>
-                  <th scope="col" class="sort" data-sort="status">Status</th>
-                  <th scope="col">Users</th>
-                  <th scope="col" class="sort" data-sort="completion">Completion</th>
+                  <th scope="col" class="sort" data-sort="name">ID</th>
+                  <th scope="col" class="sort" data-sort="budget">Category Name</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody class="list">
                 <tr>
                   <td><input type="checkbox" class="row-checkbox-right"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                      
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Argon Design System</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $2500 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-warning"></i>
-                      <span class="status">pending</span>
-                    </span>
-                  </td>
-                  <td>
-                   
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">60%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
+                  
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                     </div>
                   </td>
                 </tr>
@@ -543,16 +488,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -588,16 +529,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -633,16 +570,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -678,16 +611,12 @@
                     </div>
                   </td>
                   <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                      <img src="{% static 'images/edit1.png' %} " alt="Edit" width="20" height="20" />
+                    </a>
+                    <a href="delete-link">
+                      <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -722,19 +651,22 @@
         </div>
       </div>
     </div>
+ </div>
+  {% include "dashboard/edit_modal.html" %} 
 
-   
-  </div>
 
-  {% include "dashboard/footer.html" %} 
+
     {% endblock %}
 
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}
-<!-- <script src="{% static 'js/sidebar.js' %}" type="module"></script> -->
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.2.0/mdb.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    initMDB({ Modal, Ripple });
+  });
+</script>
 
 {% endblock javascripts %}
 

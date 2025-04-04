@@ -1,6 +1,231 @@
 {% extends 'partials/base.html' %}
+{% load static %}
 {% block content %}
-<h1 class="navbar-brand mx-auto text-center text-uppercase font-weight-bold text-danger">Farm Produce & Record Automation System</h1>
+<div class="row gx-4">
+  
+  <!-- PRODUCT CATEGORIES TABLE -->
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Product Category List</h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+           Add New Category
+        </button>
+      </div>
+      <div class="table-responsive p-3">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th><input type="checkbox" id="selectAllLeft"></th>
+              <th>ID</th>
+              <th>Category Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in categories %}
+            <tr>
+              <td><input type="checkbox" class="row-checkbox-left"></td>
+              <th>{{ category.id }}</th>
+              <td>{{ category.categoryName }}</td> 
+              <td class="text-right">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <img src="{% static 'images/edit1.png' %}" alt="Edit" width="20" height="20" />
+                </a>
+                <a href="delete-link">
+                  <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No categories found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
-<p>Here are the products.</p>
+          <!---FOOTER-->
+      <div class="card-footer py-4">
+        <nav aria-label="...">
+          <ul class="pagination justify-content-end mb-0">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">
+                <i class="fas fa-angle-left"></i>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                <i class="fas fa-angle-right"></i>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPLIER TABLE -->
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Supplier List</h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
+          Add New Supplier
+        </button>
+      </div>
+      <div class="table-responsive p-3">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>ID</th>
+              <th>Supplier Name</th>
+              <th>Contact</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for supplier in suppliers %}
+            <tr>
+              <td><input type="checkbox"></td>
+              <th>{{ supplier.id }}</th>
+              <td>{{ supplier.name }}</td> 
+              <td class="text-right">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <img src="{% static 'images/edit1.png' %}" alt="Edit" width="20" height="20" />
+                </a>
+                <a href="delete-link">
+                  <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No suppliers found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+        <!---FOOTER-->
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER TABLE -->
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Customer List</h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+          Add New Customer
+        </button>
+      </div>
+      <div class="table-responsive p-3">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>ID</th>
+              <th>Customer Name</th>
+              <th>Address</th>
+              <th>Location</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for customer in customers %}
+            <tr>
+              <td><input type="checkbox"></td>
+              <th>{{ customer.id }}</th>
+              <td>{{ customer.customerName }}</td> 
+              <td>{{ customer.address }}</td> 
+              <td>{{ customer.location }}</td> 
+              <td class="text-right">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal">
+                  <img src="{% static 'images/edit1.png' %}" alt="Edit" width="20" height="20" />
+                </a>
+                <a href="delete-link">
+                  <img src="{% static 'images/delete.png' %}" alt="Delete" width="20" height="20" />
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No customers found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!---FOOTER-->
+      <div class="card-footer py-4">
+        <nav aria-label="...">
+          <ul class="pagination justify-content-end mb-0">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">
+                <i class="fas fa-angle-left"></i>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                <i class="fas fa-angle-right"></i>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% include "dashboard/edit_modal.html" %}
+{% include "dashboard/add_categoryModal.html" %}
 {% endblock %}
