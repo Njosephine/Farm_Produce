@@ -53,7 +53,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'automationsystem.urls'
 
 TEMPLATES = [
+<<<<<<< HEAD
     { 
+=======
+    {
+>>>>>>> bb7995000adfb11203e87c18f386ac0afe8d6de1
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
@@ -116,7 +120,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+<<<<<<< HEAD
 STATIC_URL = 'static/'
+=======
+#STATIC_URL = 'static/'
+import os
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+>>>>>>> bb7995000adfb11203e87c18f386ac0afe8d6de1
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

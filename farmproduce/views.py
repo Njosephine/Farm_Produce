@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
+<<<<<<< HEAD
 from django.contrib import messages
 from .forms import ProductForm  # Ensure this form is created
 import datetime
 from .models import Product, Transaction
 from .forms import PurchaseForm
 
+=======
+>>>>>>> bb7995000adfb11203e87c18f386ac0afe8d6de1
 
 # Product list view
 def product_list(request):
     products = Product.objects.all()  # Fetch all products
     return render(request, 'product_list.html', {'products': products})
 
+<<<<<<< HEAD
 
 # Add new product
 def add_product(request):
@@ -37,12 +41,35 @@ def edit_product(request, product_id):
         form = ProductForm(instance=product)
 
     return render(request, 'edit_product.html', {'form': form, 'product': product})
+=======
+# Add new product
+def add_product(request):
+    if request.method == 'POST':
+        # Handle product creation
+        name = request.POST['name']
+        price = request.POST['price']
+        product = Product(name=name, price=price)
+        product.save()
+        return redirect('product_list')
+    return render(request, 'add_product.html')
+
+# Edit product
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        product.name = request.POST['name']
+        product.price = request.POST['price']
+        product.save()
+        return redirect('product_list')
+    return render(request, 'edit_product.html', {'product': product})
+>>>>>>> bb7995000adfb11203e87c18f386ac0afe8d6de1
 
 # Delete product
 def delete_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     product.delete()
     return redirect('product_list')
+<<<<<<< HEAD
 
 #displays only seasonal products based on the current season
 def seasonal_product_list(request):
@@ -143,3 +170,5 @@ def purchase_product(request, product_id):
         'current_stock': product.quantity_kg,
         'price_per_kg': product.price_per_kg
     })
+=======
+>>>>>>> bb7995000adfb11203e87c18f386ac0afe8d6de1
