@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
+from django.contrib import messages
 from .forms import ProductForm  # Ensure this form is created
 import datetime
 from .models import Product, Transaction
 from .forms import PurchaseForm
 
+
 # Product list view
 def product_list(request):
     products = Product.objects.all()  # Fetch all products
     return render(request, 'product_list.html', {'products': products})
+
 
 # Add new product
 def add_product(request):
@@ -110,18 +113,33 @@ from django.contrib import messages  # For showing error messages
 
 def purchase_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-
+    
     if request.method == "POST":
-        form = PurchaseForm(request.POST)
-        if form.is_valid():
-            purchase = form.save(commit=False)
-            purchase.product = product  # Link purchase to the product
-            purchase.save()
-            product.quantity_kg += purchase.quantity_purchased  # Update stock
-            product.save()
-            return redirect("product_list")  # Redirect to product list after saving
-    else:
-        form = PurchaseForm()
+        purchased_kg = request.POST.get('purchased_kg')
+        
+        try:
+            purchased_kg = float(purchased_kg)
+            if purchased_kg <= 0:
+                messages.error(request, "Quantity must be positive")
+            else:
+                # Update product stock
+                product.quantity_kg += purchased_kg
+                product.save()
+                
+                # Record transaction
+                Transaction.objects.create(
+                    product=product,
+                    quantity_purchased=purchased_kg,
+                    total_cost=purchased_kg * product.price_per_kg
+                )
+                messages.success(request, f"Added {purchased_kg}kg to {product.name}")
+                return redirect('product_list')
+                
+        except (ValueError, TypeError):
+            messages.error(request, "Please enter a valid number")
 
-    return render(request, "purchase.html", {"form": form, "product": product})
-
+    return render(request, 'purchase_product.html', {
+        'product': product,
+        'current_stock': product.quantity_kg,
+        'price_per_kg': product.price_per_kg
+    })
