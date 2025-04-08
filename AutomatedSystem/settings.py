@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
+    'django_tables2',
+    'django_filters',
 
 ]
 
@@ -69,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'AutomatedSystem.wsgi.application'
+ASGI_APPLICATION = 'AutomatedSystem.asgi.application'
 
 
 # Database
@@ -143,3 +145,9 @@ LOGIN_URL = "index"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+#
+
+
+
+

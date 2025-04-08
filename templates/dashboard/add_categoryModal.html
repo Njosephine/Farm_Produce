@@ -7,31 +7,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post">
+               
+                <form method="POST" action="{% url 'category' %}">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-success">Save Category</button>
-                </form>
+                    {{ category_form.as_p }}
+                    <button type="submit" name="product_submit" class="btn btn-primary">Save</button>
+                  </form>
+              
+                
             </div>
         </div>
     </div>
 </div>
 
-<!--Add Customer Modal-->
-<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addCustomerModalLabel">Add New Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-success">Save Category</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
