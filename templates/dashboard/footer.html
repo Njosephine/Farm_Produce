@@ -1,11 +1,30 @@
 
+
 {% load static %}
 
 {% block content %}
 
 
-
-
-
+{% block stylesheets %}
+<style>
+   footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+}
+</style>
+{% endblock stylesheets %}
+<footer class="bg-body text-center">
   
+  
+    <!-- Copyright -->
+    <div class="text-center p-3">
+      © 2025 Copyright:
+      <a class="text-body" href="#">AgriTrack</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
 {% endblock %}
