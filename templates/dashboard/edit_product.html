@@ -63,16 +63,9 @@ h2 {
 
 </style>
 {% endblock stylesheets %}
-<h2 class="mb-4 text-center text-uppercase">Add Product</h2>
+<h2 class="mb-4 text-center text-uppercase">Edit Product</h2>
 <div class="card shadow-sm"  style="max-width: 600px; margin: 0 auto;">
     <div class="card-body">
-
-        <!-- Display the form's non-field errors (if any) in a styled alert -->
-        {% if form.non_field_errors %}
-            <div class="alert alert-warning">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
         <form method="post">
             {% csrf_token %}
         
@@ -124,32 +117,31 @@ h2 {
                 <a href="{% url 'products' %}" class="btn btn-secondary px-4 py-2">Cancel</a>
             </div>
         </form>
-        
     </div>
+   
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const statusField = document.getElementById('id_drying_status');
-        const driedFields = [
-            document.getElementById('id_driedWeight').closest('.form-group'),
-            document.getElementById('id_drying_end_date').closest('.form-group'),
-            document.getElementById('id_drying_expenses').closest('.form-group')
-        ];
-    
-        function toggleDriedFields() {
-            const isDried = statusField.value === 'dried';
-            driedFields.forEach(group => {
-                if (group) {
-                    group.style.display = isDried ? 'block' : 'none';
-                }
-            });
-        }
-    
-        statusField.addEventListener('change', toggleDriedFields);
-        toggleDriedFields();  
-    });
-</script>
-    
-    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const statusField = document.getElementById('id_drying_status');
+            const driedFields = [
+                document.getElementById('id_driedWeight').closest('.form-group'),
+                document.getElementById('id_drying_end_date').closest('.form-group'),
+                document.getElementById('id_drying_expenses').closest('.form-group')
+            ];
+        
+            function toggleDriedFields() {
+                const isDried = statusField.value === 'dried';
+                driedFields.forEach(group => {
+                    if (group) {
+                        group.style.display = isDried ? 'block' : 'none';
+                    }
+                });
+            }
+        
+            statusField.addEventListener('change', toggleDriedFields);
+            toggleDriedFields();  // Run on page load
+        });
+   </script>
 {% endblock %}

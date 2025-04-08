@@ -57,18 +57,6 @@ def profile_view(request):
 def dashboard_view(request):
     return render(request, 'dashboard/dashboard.html')
 
-
-
-
-def supplier_view(request):
-    return render(request, 'dashboard/supplier.html')
-
-def customer_view(request):
-    return render(request, 'dashboard/customer.html')
-
-def chat_view(request):
-    return render(request, 'dashboard/messages.html')
-
 # # categories view
 # def category_view(request):
 #     form = Category_Form()
@@ -431,3 +419,102 @@ def add_product_view(request):
     else:
         form = Product_Form()
     return render(request, 'dashboard/add-product.html', {'form': form})
+
+
+def export_product_csv(request):
+    # Create an HTTP response with the appropriate CSV header
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="product.csv"'
+    
+    # Create the CSV writer object
+    writer = csv.writer(response)
+    
+    # Write the header row
+    writer.writerow(['product_number','categoryName', 'driedWeight', 'drying_expenses', 'drying_status', 'drying_start_date', 'drying_end_date', 'quantity_purchased'])
+    
+    # Write data rows
+    product = Product.objects.all()
+    for products in product:
+        writer.writerow([product.product_number, product.categoryName, product.driedWeight, product.drying_expenses, product.drying_status, product.drying_start_date,product.drying_end_date,product.quantity_purchased])
+    
+    return response
+
+
+def export_product_pdf(request):
+    # Create an HTTP response with the appropriate PDF MIME type
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="product.pdf"'
+    
+    # Create a PDF canvas
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+    
+    # Write the title
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(100, height - 40, "Product Data")
+    
+    # Set up the column headers
+    p.setFont("Helvetica-Bold", 10)
+    p.drawString(50, height - 80, "product Number")
+    p.drawString(100, height - 80, "Drying_start Date")
+    p.drawString(200, height - 80, "Category")
+    p.drawString(300, height - 80, "Quantity Purchased")
+    p.drawString(400, height - 80, "Drying status")
+    p.drawString(500, height - 80, "Dried Weight")
+    p.drawString(600, height - 80, "Drying_end Date")
+    p.drawString(700, height - 80, "Drying Expenses")
+    
+    # Write the data rows
+    y_position = height - 100
+    products = Product.objects.all()
+    for product in products:
+        p.setFont("Helvetica", 10)
+        p.drawString(50, y_position, str(product.product_number))
+        p.drawString(100, y_position, str(product.categoryName))
+        p.drawString(200, y_position, str(product.quantity_purchased))
+        p.drawString(300, y_position, str(product.driedWeight))
+        p.drawString(400, y_position, str(product.drying_status))
+        p.drawString(500, y_position, str(product.drying_start_date))
+        p.drawString(500, y_position, str(product.drying_end_date))
+        p.drawString(700, y_position, str(product.drying_expenses))
+        
+        y_position -= 20
+        if y_position < 40: 
+            p.showPage()
+            y_position = height - 40
+    
+    # Save the PDF
+    p.showPage()
+    p.save()
+    
+    return response
+
+def edit_product(request, id):
+    product = get_object_or_404(Product, id=id)
+
+     #Check if product has already been dried and sold
+    if product.drying_status == 'dried' and product.is_sold:
+        messages.warning(request, "This product has already been dried and sold. It cannot be edited.")
+        return redirect('products')
+    
+    if request.method == 'POST':
+        form = Product_Form(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('products') 
+    else:
+        form = Product_Form(instance=product)
+    return render(request, 'dashboard/edit_product.html', {'form': form})
+
+# Delete Product
+def delete_product(request, id):
+    product = get_object_or_404(Product, id=id)
+    product.delete()
+
+     # Reorder sale_numbers
+    for index, s in enumerate(Product.objects.order_by('product_number'), start=1):
+        s.product_number = index
+        s.save(update_fields=['product_number'])
+
+        
+    return redirect('products')

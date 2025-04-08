@@ -18,7 +18,9 @@
         <div>
               <!-- Add Sale Button -->
             <a href="{% url 'add_product' %}" class="btn btn-primary">+ Add Product</a>
-            
+
+            <a href="{% url 'export_product_csv' %}" class="btn btn-success">Download CSV</a>
+            <a href="{% url 'export_product_pdf' %}" class="btn btn-danger">Download PDF</a>
         </div>
     </div>
 
@@ -52,9 +54,6 @@
 
 
 <!-- Modals -->
-{% include "dashboard/add_saleModal.html" %}
-{% include "dashboard/edit_modal.html" %}
-
 
 {% endblock %}
 

@@ -46,17 +46,18 @@ class Supplier(models.Model):
         return self.supplierName
 class Product(models.Model):
     categoryName = models.ForeignKey(Category, on_delete=models.CASCADE)
-    quantitypurchased = models.ForeignKey('Purchase', on_delete=models.CASCADE, default=1)
+    quantitypurchased = models.ForeignKey('Purchase', on_delete=models.CASCADE)
     driedWeight = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     drying_expenses = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+   
     drying_status = models.CharField(max_length=50, choices=[
         ('not_dried', 'Not Dried'),
         ('drying', 'Drying'),
         ('dried', 'Dried')
     ], default='not_dried')
-    drying_start_date = models.DateTimeField(null=True, blank=True)
-    drying_end_date = models.DateTimeField(null=True, blank=True)
-    product_number = models.PositiveIntegerField(unique=True, default=1)
+    drying_start_date = models.DateTimeField(default=timezone.now)
+    drying_end_date = models.DateTimeField(default=timezone.now)
+    product_number = models.PositiveIntegerField(unique=True)
 
     def __str__(self):
         return f"{self.categoryName} - {self.drying_status}"
@@ -64,6 +65,18 @@ class Product(models.Model):
     @property
     def quantity_purchased(self):
         return self.quantitypurchased.quantityPurchased
+    
+    @property
+    def is_sold(self):
+        return self.driedWeight == 0 and self.drying_status == 'dried'
+    
+  
+    
+    def save(self, *args, **kwargs):
+        if not self.product_number:
+            last_product = Product.objects.order_by('-product_number').first()
+            self.product_number = (last_product.product_number + 1) if last_product else 1
+        super().save(*args, **kwargs)
 
     
 class Sale(models.Model):
@@ -73,7 +86,7 @@ class Sale(models.Model):
     quantitySold = models.PositiveIntegerField() 
     sellingPrice = models.DecimalField(max_digits=10, decimal_places=2) 
     selling_expenses = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  
-    sale_number = models.PositiveIntegerField(unique=True, default=1)
+    sale_number = models.PositiveIntegerField(unique=True)
     
     def save(self, *args, **kwargs):
         if not self.sale_number:
@@ -89,20 +102,23 @@ class Sale(models.Model):
                 driedWeight__gt=0
             ).order_by('drying_end_date')
 
-            remaining = self.quantitySold
-            for product in dried_products:
+        remaining = self.quantitySold
+        for product in dried_products:
                 if product.driedWeight >= remaining:
-                    product.driedWeight -= remaining
+                  product.driedWeight -= remaining
+                if product.driedWeight == 0:
+                    product.is_sold = True
                     product.save()
                     remaining = 0
                     break
                 else:
-                    remaining -= product.driedWeight
-                    product.driedWeight = 0
-                    product.save()
+                   remaining -= product.driedWeight
+                   product.driedWeight = 0
+                   product.is_sold = True
+                   product.save()
 
-            if remaining > 0:
-                raise ValidationError("Not enough dried weight available for this sale.")
+        if remaining > 0:
+            raise ValidationError("Not enough dried weight available for this sale.")
 
         super().save(*args, **kwargs)
 
@@ -121,7 +137,7 @@ class Purchase(models.Model):
     quantityPurchased = models.PositiveIntegerField() 
     buyingPrice = models.DecimalField(max_digits=10, decimal_places=2) 
     buying_expenses = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)  
-    purchase_number = models.PositiveIntegerField(unique=True, default=1)
+    purchase_number = models.PositiveIntegerField(unique=True)
   
     def save(self, *args, **kwargs):
         if not self.purchase_number:

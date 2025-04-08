@@ -42,6 +42,7 @@ class PurchaseTable(tables.Table):
 
 
 class ProductTable(tables.Table):
+ 
     drying_start_date = tables.DateColumn(format="Y-m-d", verbose_name="Start_Drying Date")
     drying_end_date = tables.DateColumn(format="Y-m-d", verbose_name="End_Drying Date")
     def render_drying_start_date(self, value):
@@ -61,6 +62,6 @@ class ProductTable(tables.Table):
       
     class Meta:
         model = Product
-        fields = ('product_number','categoryName', 'driedWeight', 'drying_expenses', 'drying_status', 'drying_start_date', 'drying_end_date', 'quantity_purchased')
+        fields = ('product_number','categoryName', 'quantity_purchased','drying_start_date', 'drying_status', 'drying_end_date', 'driedWeight','drying_expenses')
         attrs = {"class": "table table-striped"}
         template_name = "django_tables2/bootstrap5.html"
