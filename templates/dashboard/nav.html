@@ -99,7 +99,7 @@
       appId      : '1404204653938488',
       cookie     : true,
       xfbml      : true,
-      version    : 'v19.0'
+      version    : 'v17.0'
     });
 
     FB.AppEvents.logPageView();
@@ -122,11 +122,11 @@
   function statusChangeCallback(response) {
     if (response.status === 'connected') {
       FB.api('/me', {fields: 'name,email'}, function(userInfo) {
-        alert('✅ Welcome ' + userInfo.name + '!\n📧 Your email is: ' + userInfo.email);
-        // You can also send this info to your backend here using AJAX.
+        alert('Welcome ' + userInfo.name + '!\n Your email is: ' + userInfo.email);
+       
       });
     } else {
-      alert('❌ Facebook login failed or was cancelled.');
+      alert(' Facebook login failed or was cancelled.');
     }
   }
 </script>

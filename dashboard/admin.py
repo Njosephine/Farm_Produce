@@ -33,7 +33,7 @@ class ProductAdmin(admin.ModelAdmin):
 #Register model
 @admin.register(Sale)
 class SaleAdmin(admin.ModelAdmin):
-    list_display = ('id','categoryName','sale_date','customerName','quantitySold','sellingPrice','totalSellingPrice','selling_expenses') 
+    list_display = ('id','categoryName','sale_date','customerName','quantitySold','sellingPrice','selling_expenses') 
 
 
 #Register model

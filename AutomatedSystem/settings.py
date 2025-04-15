@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-6%vv6m2$8p%o-%r7+5$@3=nd3=qs0(2%1mci(52f#y%mpfp05f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
 
+]
 
 # Application definition
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'django_tables2',
     'django_filters',
+   
 
 ]
 

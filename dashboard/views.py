@@ -1,3 +1,5 @@
+from datetime import datetime
+from decimal import Decimal
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import csv
@@ -19,6 +21,8 @@ from .tables import ProductTable, SaleTable,PurchaseTable
 from .filters import ProductFilter, SaleFilter
 from .filters import PurchaseFilter
 from django.db.models import Q
+from django.contrib.auth.models import User
+
 
 def index_view(request):
     form = LoginForm(request.POST or None)
@@ -55,7 +59,63 @@ def profile_view(request):
 
 @login_required
 def dashboard_view(request):
-    return render(request, 'dashboard/dashboard.html')
+    total_users = User.objects.count()
+    total_categories = Category.objects.count()
+
+    latest_sale = Sale.objects.order_by('-sale_date').first()
+    latest_purchase = Purchase.objects.order_by('-purchasedate').first()
+
+    total_expenses = latest_purchase.total_expenses() if latest_purchase else Decimal('0.00')
+
+    # Default values
+    profit = Decimal('0.00')
+    loss = Decimal('0.00')
+
+    if latest_sale:
+        total_selling_price = Decimal('0.00')
+        total_cost = Decimal('0.00')
+
+        for detail in latest_sale.details.all():
+            total_selling_price += detail.total_selling_price
+            total_cost += (
+                detail.total_buying_price +
+                detail.allocated_buying_expense +
+                detail.allocated_drying_expense +
+                detail.allocated_selling_expense
+            )
+
+        result = total_selling_price - total_cost
+        if result >= 0:
+            profit = result
+        else:
+            loss = abs(result)
+
+    context = {
+        'total_users': total_users,
+        'total_categories': total_categories,
+        'latest_sale': latest_sale,
+        'latest_purchase': latest_purchase,
+        'total_expenses': total_expenses,
+        'profit': profit,
+        'loss': loss,
+    }
+
+    # Optional debug print
+    if latest_sale:
+        print(f"DEBUG - Sale ID: {latest_sale.id}, Selling Expenses: {latest_sale.selling_expenses}")
+        print(f"\n===== SALE #{latest_sale.sale_number} ({latest_sale.quantitySold} units) =====")
+        for detail in latest_sale.details.all():
+            print(f"DETAIL: Product #{detail.product.product_number} | Qty: {detail.quantity}")
+            print(f"  - Buying Cost: {detail.total_buying_price}")
+            print(f"  - Buying Expense: {detail.allocated_buying_expense}")
+            print(f"  - Drying Expense: {detail.allocated_drying_expense}")
+            print(f"  - Selling Expense: {detail.allocated_selling_expense}")
+            print(f"  - Total Cost: {detail.total_buying_price + detail.allocated_buying_expense + detail.allocated_drying_expense + detail.allocated_selling_expense}")
+            print(f"  - Selling Price: {detail.total_selling_price}")
+            print(f"  - Profit/Loss: {detail.profit_or_loss}")
+
+    return render(request, 'dashboard/dashboard.html', context)
+    
 
 # # categories view
 # def category_view(request):
@@ -210,7 +270,7 @@ def export_purchase_pdf(request):
     p.drawString(50, height - 80, "Purchase Number")
     p.drawString(100, height - 80, "Purchase Date")
     p.drawString(200, height - 80, "Category")
-    p.drawString(300, height - 80, "Supplier")
+    p.drawString(300, height - 80, "Supplier")#    'bd44-197-239-9-67.ngrok-free.app' 
     p.drawString(400, height - 80, "Quantity Purchased")
     p.drawString(500, height - 80, "Buying Price")
     p.drawString(600, height - 80, "Total Buying Price")
@@ -415,7 +475,7 @@ def add_product_view(request):
         form = Product_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('sales')  
+            return redirect('products')  
     else:
         form = Product_Form()
     return render(request, 'dashboard/add-product.html', {'form': form})
@@ -518,3 +578,5 @@ def delete_product(request, id):
 
         
     return redirect('products')
+
+
