@@ -159,39 +159,39 @@ class Sale(models.Model):
         No longer splits selling expenses per unit — handled as a fixed value per sale.
         """
         with transaction.atomic():
-            dried_products = Product.objects.filter(
-                categoryName=self.categoryName,
-                drying_status='dried',
-                driedWeight__gt=0
-            ).order_by('drying_end_date')
+         dried_products = Product.objects.filter(
+            categoryName=self.categoryName,
+            drying_status='dried',
+            driedWeight__gt=0
+        ).order_by('drying_end_date')
 
-            remaining = self.quantitySold
+        total_available = dried_products.aggregate(total=models.Sum('driedWeight'))['total'] or 0
+        if total_available < self.quantitySold:
+            raise ValidationError("Not enough dried weight available for this sale.")
 
-            for product in dried_products:
-                available = product.driedWeight
+        remaining = self.quantitySold
 
-                if available >= remaining:
-                    SaleDetail.objects.create(
-                        sale=self,
-                        product=product,
-                        quantity=remaining
-                    )
-                    product.driedWeight -= remaining
-                    product.save()
-                    break
-                else:
-                    SaleDetail.objects.create(
-                        sale=self,
-                        product=product,
-                        quantity=available
-                    )
-                    product.driedWeight = 0
-                    product.save()
-                    remaining -= available
+        for product in dried_products:
+            available = product.driedWeight
 
-            if remaining > 0:
-                raise ValidationError("Not enough dried weight available for this sale.")
-
+            if available >= remaining:
+                SaleDetail.objects.create(
+                    sale=self,
+                    product=product,
+                    quantity=remaining
+                )
+                product.driedWeight -= remaining
+                product.save()
+                break
+            else:
+                SaleDetail.objects.create(
+                    sale=self,
+                    product=product,
+                    quantity=available
+                )
+                product.driedWeight = 0
+                product.save()
+                remaining -= available
     @property
     def totalSellingPrice(self):
         return self.quantitySold * self.sellingPrice

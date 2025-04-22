@@ -100,7 +100,7 @@ def dashboard_view(request):
         'loss': loss,
     }
 
-    # Optional debug print
+    #debug print
     if latest_sale:
         print(f"DEBUG - Sale ID: {latest_sale.id}, Selling Expenses: {latest_sale.selling_expenses}")
         print(f"\n===== SALE #{latest_sale.sale_number} ({latest_sale.quantitySold} units) =====")
