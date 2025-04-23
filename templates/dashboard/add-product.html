@@ -1,0 +1,155 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+
+{% block stylesheets %}
+<style>
+    /* Add some margin and padding around the form */
+.card-body {
+    padding: 30px;
+}
+
+/* Style for the form title */
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Styling for the 'Save Sale' and 'Cancel' buttons */
+.btn {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Padding and spacing for form elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+{% endblock stylesheets %}
+<h2 class="mb-4 text-center text-uppercase">Add Product</h2>
+<div class="card shadow-sm"  style="max-width: 600px; margin: 0 auto;">
+    <div class="card-body">
+
+        <!-- Display the form's non-field errors (if any) in a styled alert -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-warning">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+        
+            <div class="form-group">
+                {{ form.categoryName.label_tag }}
+                {{ form.categoryName }}
+                {{ form.categoryName.errors }}
+            </div>
+        
+            <div class="form-group">
+                {{ form.quantitypurchased.label_tag }}
+                {{ form.quantitypurchased }}
+                {{ form.quantitypurchased.errors }}
+                
+            </div>
+        
+            <div class="form-group">
+                {{ form.drying_status.label_tag }}
+                {{ form.drying_status }}
+                {{ form.drying_status.errors }}
+            </div>
+        
+            <div class="form-group">
+                {{ form.drying_start_date.label_tag }}
+                {{ form.drying_start_date }}
+                {{ form.drying_start_date.errors }}
+            </div>
+        
+            <div class="form-group" id="driedWeight_group">
+                {{ form.driedWeight.label_tag }}
+                {{ form.driedWeight }}
+                {{ form.driedWeight.errors }}
+            </div>
+        
+            <div class="form-group" id="drying_end_date_group">
+                {{ form.drying_end_date.label_tag }}
+                {{ form.drying_end_date }}
+                {{ form.drying_end_date.errors }}
+            </div>
+        
+            <div class="form-group" id="drying_expenses_group">
+                {{ form.drying_expenses.label_tag }}
+                {{ form.drying_expenses }}
+                {{ form.drying_expenses.errors }}
+            </div>
+        
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success px-4 py-2">Save Product</button>
+                <a href="{% url 'products' %}" class="btn btn-secondary px-4 py-2">Cancel</a>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const statusField = document.getElementById('id_drying_status');
+        const driedFields = [
+            document.getElementById('id_driedWeight').closest('.form-group'),
+            document.getElementById('id_drying_end_date').closest('.form-group'),
+            document.getElementById('id_drying_expenses').closest('.form-group')
+        ];
+    
+        function toggleDriedFields() {
+            const isDried = statusField.value === 'dried';
+            driedFields.forEach(group => {
+                if (group) {
+                    group.style.display = isDried ? 'block' : 'none';
+                }
+            });
+        }
+    
+        statusField.addEventListener('change', toggleDriedFields);
+        toggleDriedFields();  
+    });
+</script>
+    
+    
+{% endblock %}

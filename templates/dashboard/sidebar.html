@@ -1,9 +1,6 @@
 
 
 {% load static %}
-
-
-
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 <style>
@@ -20,9 +17,6 @@
         box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
         
       }
-        
-      
-
     .sidebar-logo {
      display: block;
      margin: 0 auto;
@@ -40,19 +34,27 @@
       <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="sidebar-logo" >
       <hr class="hr" />
         <div class="list-group list-group-flush mx-8 mt-4">
-            <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action py-4 ripple "  style="border-bottom: none;">
-                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+          <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
+            <img src="{% static 'images/dashboard.png' %}" alt="Dashboard Icon" style="width: 20px; height: 20px; margin-right: 8px;">
+            <span>Dashboard</span>
+          </a>
+          <a href="{% url 'purchases' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
+            <img src="{% static 'images/purchase.png' %}" alt="Supplier Icon" style="width: 25px; height: 25px; margin-right: 8px;">
+            <span>Purchase</span>
+          </a>
+
+            <a href="{% url 'products' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
+              <img src="{% static 'images/category.png' %}" alt="Category Icon" style="width: 20px; height: 20px; margin-right: 8px;">
+              <span>Product</span>
             </a>
-            <a href="{% url 'products' %}" class="list-group-item list-group-item-action py-4 ripple " style="border-bottom: none;">
-                <i class="fas fa-chart-area fa-fw me-3"></i><span>Product</span>
-            </a>
-            <a href="{% url 'purchases' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
-              <i class="fas fa-lock fa-fw me-3"></i><span>Purchases</span>
-            </a>
+          
+         
             
             <a href="{% url 'sales' %}" class="list-group-item list-group-item-action py-4 ripple" style="border-bottom: none;">
-                <i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span>
+              <img src="{% static 'images/sales.png' %}" alt="Supplier Icon" style="width: 25px; height: 25px; margin-right: 8px;">
+              <span>Sales</span>
             </a>
+           
         </div>
     </div>
 </nav>

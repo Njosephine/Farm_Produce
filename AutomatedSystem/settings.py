@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-6%vv6m2$8p%o-%r7+5$@3=nd3=qs0(2%1mci(52f#y%mpfp05f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
 
+]
 
 # Application definition
 
@@ -38,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
+    'django_tables2',
+    'django_filters',
+   
 
 ]
 
@@ -69,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'AutomatedSystem.wsgi.application'
+ASGI_APPLICATION = 'AutomatedSystem.asgi.application'
 
 
 # Database
@@ -143,3 +147,9 @@ LOGIN_URL = "index"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+#
+
+
+
+

@@ -2,7 +2,7 @@
 
 
 from django.urls import path 
-from dashboard.views import  index_view, logout_view,profile_view,dashboard_view, products_view, purchases_view, sales_view
+from dashboard.views import  index_view, logout_view,profile_view,dashboard_view, products_view, purchases_view, sales_view, category_view,add_sale_view,export_sales_csv, export_sales_pdf,edit_sale,delete_sale,edit_purchase,delete_purchase,add_purchase_view,export_purchase_csv,export_purchase_pdf,add_product_view, export_product_csv,export_product_pdf,edit_product,delete_product
 
 urlpatterns = [
     # path("home/", home_view, name="home"),
@@ -10,9 +10,29 @@ urlpatterns = [
     path("logout/", logout_view, name="logout"),
     path("profile/", profile_view, name="profile" ),
     path('dashboard/', dashboard_view, name='dashboard'),
-    path('products/', products_view, name='products'),
+    path('product/', products_view, name='products'),
     path('purchases/', purchases_view, name='purchases'),
     path('sales/', sales_view, name='sales'),
+    path('category/', category_view, name='category'),
+    path('sales/add/', add_sale_view, name='add_sale'),
+    path('export_sales_csv/', export_sales_csv, name='export_sales_csv'),
+    path('export_sales_pdf/', export_sales_pdf, name='export_sales_pdf'),
+    path('sales/edit/<int:id>/', edit_sale, name='edit_sale'),
+    path('sales/delete/<int:id>/', delete_sale, name='delete_sale'),
+    path('purchases/add/', add_purchase_view, name='add_purchase'),
+    path('purchases/edit/<int:id>/', edit_purchase, name='edit_purchase'),
+    path('purchases/delete/<int:id>/', delete_purchase, name='delete_purchase'),
+    path('export_purchase_csv/', export_purchase_csv, name='export_purchase_csv'),
+    path('export_purchase_pdf/', export_purchase_pdf, name='export_purchase_pdf'),
+    path('products/add/', add_product_view, name='add_product'),
+    path('export_product_csv/', export_product_csv, name='export_product_csv'),
+    path('export_product_pdf/', export_product_pdf, name='export_product_pdf'),
+    path('products/edit/<int:id>/', edit_product, name='edit_product'),
+    path('products/delete/<int:id>/', delete_product, name='delete_product'),
 ]
+
+
+
+
 
 

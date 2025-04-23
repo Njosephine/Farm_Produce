@@ -1,99 +1,133 @@
-   {% load static %} 
+{% load static %}
 
-
-   <!-- Specific CSS goes HERE -->
+<!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 <style>
   .notification-icon {
-      font-size: 25px; /* Match the profile image height */
-     
-      height: 35px; 
+      font-size: 25px;
+      height: 35px;
       display: flex;
       align-items: center;
       justify-content: center;
   }
-  .breadcrumb-item a{
-    color: white !important;
-  }
 
-  
-  
+  .breadcrumb-item a {
+      color: white !important;
+  }
 </style>
 {% endblock stylesheets %}
-   {% block content %}    
-        
-   <div class="header bg-success pb-7" >
-    <div class="container-fluid">
-      <div class="header-body">
-        <div class="row align-items-center py-4">    
-   <div class="col-lg-6 col-7">
-     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-        <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-        <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-     
-      </ol>
-    </nav>
-  </div>
-  <div class="col-lg-6 col-5 d-flex justify-content-end align-items-center">
-    <ul class="list-inline mb-0">
-        <!-- User Profile Dropdown -->
-        <li class="list-inline-item">
-            <a class="btn btn-sm btn-neutral" href="#" 
-               id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{% static 'images/profile.jpeg' %}" class="rounded-circle" height="35" width="35" alt="User Profile" loading="lazy"/>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+{% block content %}
+<div class="header bg-success pb-7">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+              <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="col-lg-6 col-5 d-flex justify-content-end align-items-center">
+          <ul class="list-inline mb-0">
+
+            <!-- User Profile Dropdown -->
+            <li class="list-inline-item">
+              <a class="btn btn-sm btn-neutral" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/user2.png' %}" class="rounded-circle" height="35" width="35" alt="User Profile" loading="lazy"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">My Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-            </ul>
-        </li>
+              </ul>
+            </li>
 
-        <!-- Notification Bell Dropdown -->
-        <li class="list-inline-item nav-item dropdown">
-            <a class="btn btn-sm btn-neutral position-relative" href="#" id="notificationDropdown"
-               role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-bell notification-icon"></i>
-                <!-- <span class="badge rounded-pill badge-notification bg-danger">1</span> -->
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+            <!-- Notification Bell Dropdown -->
+            <li class="list-inline-item nav-item dropdown">
+              <a class="btn btn-sm btn-neutral position-relative" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/bell 1.png' %}" class="rounded-circle" height="35" width="35" alt="Notifications" loading="lazy"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
                 <li><a class="dropdown-item" href="#">Some news</a></li>
                 <li><a class="dropdown-item" href="#">Another news</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </li>
-    </ul>
-  </div>
+              </ul>
+            </li>
 
-</div>
-</div>
-</div>
-</div>
-</div>
+            <!-- Facebook Login Button -->
+            <li class="list-inline-item">
+              <div style="text-align: center;">
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                </fb:login-button>
+              </div>
+            </li>
 
-<!-- Navbar -->
-
-
-<!-- Main layout -->
-
-<!-- Profile Modal -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="profileModalLabel">{{ user.username }}'s Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          
-          <!-- User Details -->
-          <p><strong>Email:</strong> {{ user.email }}</p>
-          <p><strong>Firstname:</strong> {{ user.profile.firstname }}</p>
-          <p><strong>Lastname:</strong> {{ user.profile.lastname }}</p>
-
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  {% endblock %}
+<!-- Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileModalLabel">{{ user.username }}'s Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Firstname:</strong> {{ user.profile.firstname }}</p>
+        <p><strong>Lastname:</strong> {{ user.profile.lastname }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+<!-- Facebook SDK and Login Logic -->
+{% block scripts %}
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1404204653938488',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v17.0'
+    });
+
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      FB.api('/me', {fields: 'name,email'}, function(userInfo) {
+        alert('Welcome ' + userInfo.name + '!\n Your email is: ' + userInfo.email);
+       
+      });
+    } else {
+      alert(' Facebook login failed or was cancelled.');
+    }
+  }
+</script>
+{% endblock scripts %}

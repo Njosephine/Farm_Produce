@@ -4,7 +4,6 @@
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-
 {% endblock stylesheets %}
 
 
@@ -14,19 +13,19 @@
 
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-md-3">
-              <div class="card card-stats">
+           <div class="col-xl-3 col-md-3 mb-4">
+              <div class="card bg-primary text-white card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0"> Products</h5>
-                      <span class="h4 font-weight-bold mb-0">350,897</span>
+                      <h5 class="card-title text-uppercase mb-0"> Products</h5>
+                      <span class="h4 font-weight-bold mb-0">{{ total_categories }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-success">
-                        <i class="fas fa-box"></i>
-
+                        <img src="{% static 'images/products.png' %}" alt="Product Icon" style="width: 35px; height: 35px; margin-right: 8px;">
+            
                       </div>
                     </div>
                   </div>
@@ -35,17 +34,37 @@
               </div>
             </div>
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card bg-success text-white card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Profits</h5>
-                      <span class="h4 font-weight-bold mb-0">2,356</span>
+                      <h5 class="card-title text-uppercase mb-0">Profits</h5>
+                      <span class="h4 font-weight-bold mb-0">{{ profit|floatformat:2 }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-success rounded-circle ">
-                        <i class="fas fa-chart-line"></i>
+                        <img src="{% static 'images/profit.png' %}" alt="Product Icon" style="width: 35px; height: 35px; margin-right: 8px;">
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+              <div class="card bg-danger text-white card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase  mb-0">Losses</h5>
+                      <span class="h4 font-weight-bold mb-0">{{ loss|floatformat:2 }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-success rounded-circle ">
+                        <img src="{% static 'images/loss.png' %}" alt="Product Icon" style="width: 35px; height: 35px; margin-right: 8px;">
                       </div>
                     </div>
                   </div>
@@ -54,37 +73,64 @@
               </div>
             </div>
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card bg-info text-white card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h4 font-weight-bold mb-0">924</span>
+                      <h5 class="card-title text-uppercase mb-0">Latest Sale</h5>
+                      {% if latest_sale %}
+                        <span class="h4 font-weight-bold mb-0">
+                          UGX {{ latest_sale.totalSellingPrice }} 
+                        </span><br>
+                      
+                      {% else %}
+                        <span class="text-muted">No sales yet.</span>
+                      {% endif %}
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-success rounded-circle ">
-                        <i class="fas fa-shopping-cart"></i>
+                        <img src="{% static 'images/sales 2.png' %}" alt="Product Icon" style="width: 35px; height: 35px; margin-right: 8px;">
                       </div>
                     </div>
                   </div>
-                 
                 </div>
+                
               </div>
             </div>
             
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card bg-warning text-white card-stats">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Expenses</h5>
-                      <span class="h4 font-weight-bold mb-0">49,65%</span>
+                      <h5 class="card-title text-uppercase  mb-0">Expenses</h5>
+                      <span class="h4 font-weight-bold mb-0">  UGX {{ total_expenses }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-success ">
-                        <i class="fas fa-wallet"></i>
+                        <img src="{% static 'images/expense.png' %}" alt="Product Icon" style="width: 35px; height: 35px; margin-right: 8px;">
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+              <div class="card bg-secondary text-white card-stats">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase  mb-0"> Users</h5>
+                      <span class="h4 font-weight-bold mb-0">{{ total_users }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-success ">
+                        <img src="{% static 'images/user.png' %}" alt="Product Icon" style="width: 35px; height: 35px; margin-right: 8px;">
                       </div>
                     </div>
                   </div>
@@ -93,609 +139,27 @@
               </div>
             </div>
         
-
-    <!-- Page content -->
-
+          
+          </div>
+        </div>
+      </div>
+    </div>
+ </div> 
  
 
-  <!-- <div class="header bg-primary pb-6">
-    <div class="container-fluid">
-      <div class="header-body">
-        <div class="row align-items-center py-4">
-          <div class="col-lg-6 col-7">
-            <h6 class="h2 text-white d-inline-block mb-0">Tables</h6>
-            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-              <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tables</li>
-              </ol>
-            </nav>
-          </div>
-          <div class="col-lg-6 col-5 text-right">
-            <a href="#" class="btn btn-sm btn-neutral">New</a>
-            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  
-  <!-- Page content -->
-   
-  <div class="container-fluid mt-6">
-    <div class="row mt-4">
 
-      <!--Left table-->
-      <div class="col-md-6">
-        <div class="card">
-          <!-- Card header -->
-          <div class="card-header border-0">
-            <h3 class="mb-0">Products</h3>
-          </div>
-          <!-- Light table -->
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col"><input type="checkbox" id="selectAllLeft"></th>
-                  <th scope="col" class="sort" data-sort="name">Project</th>
-                  <th scope="col" class="sort" data-sort="budget">Budget</th>
-                  <th scope="col" class="sort" data-sort="status">Status</th>
-                  <th scope="col">Users</th>
-                  <th scope="col" class="sort" data-sort="completion">Completion</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody class="list">
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-left"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                      
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Argon Design System</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $2500 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-warning"></i>
-                      <span class="status">pending</span>
-                    </span>
-                  </td>
-                  <td>
-                   
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">60%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-left"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                     
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Angular Now UI Kit PRO</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $1800 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-success"></i>
-                      <span class="status">completed</span>
-                    </span>
-                  </td>
-                  <td>
-                   
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">100%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-left"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                   
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Black Dashboard</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $3150 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-danger"></i>
-                      <span class="status">delayed</span>
-                    </span>
-                  </td>
-                  <td>
-                  
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">72%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-left"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                     
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">React Material Dashboard</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $4400 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-info"></i>
-                      <span class="status">on schedule</span>
-                    </span>
-                  </td>
-                  <td>
-                  
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">90%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-left"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                     
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $2200 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-success"></i>
-                      <span class="status">completed</span>
-                    </span>
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">100%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- Card footer -->
-          <div class="card-footer py-4">
-            <nav aria-label="...">
-              <ul class="pagination justify-content-end mb-0">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <i class="fas fa-angle-left"></i>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="fas fa-angle-right"></i>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-      <!--Right table-->
-      <div class="col-md-6">
-        <div class="card">
-          <!-- Card header -->
-          <div class="card-header border-0">
-            <h3 class="mb-0">Sales</h3>
-          </div>
-          <!-- Light table -->
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col"><input type="checkbox" id="selectAllRight"></th>
-                  <th scope="col" class="sort" data-sort="name">Project</th>
-                  <th scope="col" class="sort" data-sort="budget">Budget</th>
-                  <th scope="col" class="sort" data-sort="status">Status</th>
-                  <th scope="col">Users</th>
-                  <th scope="col" class="sort" data-sort="completion">Completion</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody class="list">
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-right"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                      
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Argon Design System</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $2500 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-warning"></i>
-                      <span class="status">pending</span>
-                    </span>
-                  </td>
-                  <td>
-                   
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">60%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-right"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                     
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Angular Now UI Kit PRO</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $1800 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-success"></i>
-                      <span class="status">completed</span>
-                    </span>
-                  </td>
-                  <td>
-                   
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">100%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-right"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                   
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Black Dashboard</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $3150 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-danger"></i>
-                      <span class="status">delayed</span>
-                    </span>
-                  </td>
-                  <td>
-                  
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">72%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-right"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                     
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">React Material Dashboard</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $4400 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-info"></i>
-                      <span class="status">on schedule</span>
-                    </span>
-                  </td>
-                  <td>
-                  
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">90%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox" class="row-checkbox-right"></td>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                     
-                      <div class="media-body">
-                        <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class="budget">
-                    $2200 USD
-                  </td>
-                  <td>
-                    <span class="badge badge-dot mr-4">
-                      <i class="bg-success"></i>
-                      <span class="status">completed</span>
-                    </span>
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="completion mr-2">100%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- Card footer -->
-          <div class="card-footer py-4">
-            <nav aria-label="...">
-              <ul class="pagination justify-content-end mb-0">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <i class="fas fa-angle-left"></i>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="fas fa-angle-right"></i>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
 
-   
-  </div>
-
-   
     {% endblock %}
 
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}
-<!-- <script src="{% static 'js/sidebar.js' %}" type="module"></script> -->
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/8.2.0/mdb.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    initMDB({ Modal, Ripple });
+  });
+</script>
 
 {% endblock javascripts %}
 
