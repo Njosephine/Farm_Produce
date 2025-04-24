@@ -23,5 +23,5 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.DOCKER_USERNAME }}/farm_produce:latest
+          tags: josephine696/farm_produce:latest
 
