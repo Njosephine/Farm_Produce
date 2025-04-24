@@ -1,0 +1,40 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=farm
+      - DB_USER=farm
+      - DB_PASSWORD=FARM
+      - DB_HOST=db
+    volumes:
+     - ./static:/app/static
+     - ./staticfiles:/app/staticfiles  
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: farm
+      POSTGRES_USER: farm
+      POSTGRES_PASSWORD: FARM
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+
+
