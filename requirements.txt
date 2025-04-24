@@ -1,0 +1,12 @@
+# requirements.txt
+Django>=3.2
+djangorestframework
+requests
+uvicorn
+django-tables2
+channels
+django_filter
+psycopg2-binary
+django-phonenumber-field
+phonenumbers
+reportlab

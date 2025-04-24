@@ -25,9 +25,8 @@ SECRET_KEY = 'django-insecure-6%vv6m2$8p%o-%r7+5$@3=nd3=qs0(2%1mci(52f#y%mpfp05f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = ALLOWED_HOSTS = ['*']
 
-]
 
 # Application definition
 
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'django_tables2',
     'django_filters',
+    'channels',
+
    
 
 ]
@@ -76,17 +77,18 @@ TEMPLATES = [
 ASGI_APPLICATION = 'AutomatedSystem.asgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'farm',
-        'USER': 'farm',
-        'PASSWORD': 'FARM',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME', 'farm'),
+        'USER': os.environ.get('DB_USER', 'farm'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'FARM'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
@@ -133,13 +135,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
 
-#Joining the base directory with the static folder
 
+
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 
 
 
