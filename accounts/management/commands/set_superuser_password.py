@@ -6,7 +6,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         try:
-            user = User.objects.get(username='admin')
+            user = User.objects.get(username='jose')
             user.set_password('()@#560jose')
             user.save()
             self.stdout.write(self.style.SUCCESS('Superuser password has been set successfully!'))
