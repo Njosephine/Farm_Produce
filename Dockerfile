@@ -34,6 +34,9 @@ RUN adduser \
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
+
+#RUN pip install --upgrade pip
+#RUN pip install -r requirements.txt
 COPY requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
@@ -42,7 +45,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Ensure staticfiles directory is created with the right permissions (as root)
 RUN mkdir -p /Automated/staticfiles && chmod -R 755 /Automated/staticfiles && chown -R appuser:appuser /Automated/staticfiles
 
-# Copy the entire project, including manage.py
+# Copy the entire project, including manage.py into the container
 COPY . .
 
 # Run collectstatic command as root to ensure it can create directories and write files
@@ -57,8 +60,10 @@ USER appuser
 # Expose the port that the application listens on.
 EXPOSE 8000
 
-# Run the application.
-CMD python3 -m uvicorn AutomatedSystem.asgi:application --host=0.0.0.0 --port=8000
+# Run the application. Define the command to start the django devekopment server
+#CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+CMD ["python3", "-m", "uvicorn", "AutomatedSystem.asgi:application", "--host=0.0.0.0", "--port=8000"]
+
 
 
 

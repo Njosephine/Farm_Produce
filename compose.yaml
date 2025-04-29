@@ -7,10 +7,13 @@
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
+name: automatedsystem
 services:
-  server:
-    build:
-      context: .
+   app: 
+    build: .
+    image: python_docker_image
+    container_name: docker-container
+   
     ports:
       - 8000:8000
     depends_on:
@@ -21,9 +24,10 @@ services:
       - DB_PASSWORD=FARM
       - DB_HOST=db
     volumes:
+     - .:/automated
      - ./static:/app/static
      - ./staticfiles:/app/staticfiles  
-  db:
+   db:
     image: postgres:15
     restart: always
     environment:
