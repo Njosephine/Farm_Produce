@@ -30,4 +30,4 @@ psycopg2-binary
 django-phonenumber-field
 phonenumbers
 reportlab
-gunicorngunicorn
+gunicorn
