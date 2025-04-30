@@ -23,7 +23,7 @@ from dashboard.views import logout_view
 
 urlpatterns = [
     # Admin login page
-    path('admin/login/', LoginView.as_view(), name='admin-login'),
+     path('admin/', admin.site.urls),
 
     # Include dashboard URLs (for user-specific views)
     path('', include('dashboard.urls')),
