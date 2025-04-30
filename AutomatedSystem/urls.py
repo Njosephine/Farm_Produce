@@ -19,9 +19,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import include, path
 from dashboard.views import logout_view, index_view
+from django.contrib.auth.decorators import login_required 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', login_required(admin.site.urls)), 
     path('', include('dashboard.urls')),
     path('accounts/logout/', logout_view, name='logout'),
 ]
