@@ -15,26 +15,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include, path
-from dashboard.views import logout_view, index_view
-from django.contrib.auth.decorators import login_required 
 from django.contrib.auth.views import LoginView
-from django.urls import path
 from dashboard.views import logout_view
 
 urlpatterns = [
     # Admin login page
-    path('admin/login/', LoginView.as_view(), name='admin-login'), 
+    path('admin/login/', LoginView.as_view(), name='admin-login'),
+
     # Include dashboard URLs (for user-specific views)
     path('', include('dashboard.urls')),
+
     # Logout path
     path('accounts/logout/', logout_view, name='logout'),
 ]
-
 
 # Serve static and media files only in DEBUG mode
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
