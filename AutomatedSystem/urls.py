@@ -20,12 +20,19 @@ from django.conf import settings
 from django.urls import include, path
 from dashboard.views import logout_view, index_view
 from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.views import LoginView
+from django.urls import path
+from dashboard.views import logout_view
 
 urlpatterns = [
-    path('admin/', login_required(admin.site.urls)), 
+    # Admin login page
+    path('admin/login/', LoginView.as_view(), name='admin-login'), 
+    # Include dashboard URLs (for user-specific views)
     path('', include('dashboard.urls')),
+    # Logout path
     path('accounts/logout/', logout_view, name='logout'),
 ]
+
 
 # Serve static and media files only in DEBUG mode
 if settings.DEBUG:
