@@ -1,17 +1,26 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-default-key")
+# SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-default-key")
+
+SECRET_KEY='django-insecure-6%vv6m2$8p%o-%r7+5$@3=nd3=qs0(2%1mci(52f#y%mpfp05f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Host configuration for Render deployment
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
+# ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -25,11 +34,12 @@ INSTALLED_APPS = [
     'django_tables2',
     'django_filters',
     'channels',
+     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -59,16 +69,33 @@ TEMPLATES = [
 ASGI_APPLICATION = 'AutomatedSystem.asgi.application'
 
 # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'postgres'),
+#         'USER': os.environ.get('DB_USER', 'postgres.omyootxovsvhvwrobmaq'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'FkujAopCzzjf6xTQ'),
+#         'HOST': os.environ.get('DB_HOST', 'aws-0-eu-central-1.pooler.supabase.com'),
+#         'PORT': os.environ.get('DB_PORT', '6543'),
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'farm'),
-        'USER': os.environ.get('DB_USER', 'farm'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'FARM'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': 'postgres',
+        'USER': 'postgres.omyootxovsvhvwrobmaq',
+        'PASSWORD': 'FkujAopCzzjf6xTQ',
+        'HOST': 'aws-0-eu-central-1.pooler.supabase.com',
+        'PORT': '6543',
+        'OPTIONS': {
+            'sslmode': 'require', 
+        },
     }
 }
+
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -95,10 +122,11 @@ USE_TZ = True
 # Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # WhiteNoise static file handling
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Media files
 MEDIA_URL = "/media/"
